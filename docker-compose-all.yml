@@ -55,7 +55,7 @@ services:
   coturn:
     build:
       context: ../
-      dockerfile: ./coturn/debian/Dockerfile
+      dockerfile: ./docker/coturn/debian/Dockerfile
     restart: always
     volumes:
       - ./coturn/turnserver.conf:/etc/turnserver.conf:ro
