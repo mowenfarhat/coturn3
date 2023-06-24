@@ -6,9 +6,9 @@ services:
     image: mariadb
     restart: unless-stopped
     volumes:
-      - mysql/init-coturn-db.sql:/docker-entrypoint-initdb.d/init-coturn-db.sql:ro
-      - mysql/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
-      - mysql-data:/var/lib/mysql
+      - /mysql/init-coturn-db.sql:/docker-entrypoint-initdb.d/init-coturn-db.sql:ro
+      - /mysql/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+      - /mysql-data:/var/lib/mysql
     env_file: 
       - mysql/mysql.env
     networks:
@@ -19,8 +19,8 @@ services:
     image: postgres
     restart: unless-stopped
     volumes:
-      - postgresql/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
-      - postgresql-data:/var/lib/postgresql
+      - /postgresql/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+      - /postgresql-data:/var/lib/postgresql
     env_file: 
       - postgresql/postgresql.env
     networks:
@@ -32,8 +32,8 @@ services:
     restart: unless-stopped
     command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
     volumes:
-      - redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
-      - redis-data:/data
+      - /redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - /redis-data:/data
     env_file: 
       - redis/redis.env
     networks:
@@ -44,7 +44,7 @@ services:
     image: mongo
     restart: unless-stopped
     volumes:
-      - mongodb-data:/data/db
+      - /mongodb-data:/data/db
     env_file: 
       - mongodb/mongodb.env
     networks:
@@ -57,9 +57,9 @@ services:
       dockerfile: coturn/debian/Dockerfile
     restart: always
     volumes:
-      - coturn/turnserver.conf:/etc/turnserver.conf:ro
-      - coturn/privkey.pem:/etc/ssl/private/privkey.pem:ro
-      - coturn/cert.pem:/etc/ssl/certs/cert.pem:ro
+      - /coturn/turnserver.conf:/etc/turnserver.conf:ro
+      - /coturn/privkey.pem:/etc/ssl/private/privkey.pem:ro
+      - /coturn/cert.pem:/etc/ssl/certs/cert.pem:ro
     ports:
 ## STUN/TURN
       - "3478:3478"
